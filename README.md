@@ -1,2 +1,2 @@
 # Merscasen
-This project Yazlab1.
+The aim of the project is merging scalable sentences.
