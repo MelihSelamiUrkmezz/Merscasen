@@ -1,15 +1,16 @@
-package com.project.ScalableMergeSentences.service;
+package com.project.ScalableMergeSentences.helper;
+
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class MergedSentencesService {
+@Service
+public class MergedSentencesHelper {
     public String result;
     public boolean flag;
-
-
 
     public void main_process(ArrayList<String[]> sentences){
 
