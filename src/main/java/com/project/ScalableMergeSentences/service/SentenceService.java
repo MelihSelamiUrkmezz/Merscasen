@@ -34,10 +34,16 @@ public class SentenceService {
         Sentence sentence = new Sentence();
         sentence.setSentences(requestSentenceDTO.getSentences());
         sentence.setMainSentence(helper.getResult());
+        sentence.setSuccess(helper.isSuccess());
 
         repository.save(sentence);
 
-        return new ResponseSentenceDTO(helper.getResult());
+        boolean isSuccess = helper.isSuccess();
+
+        //spring dependencyInjection cozum islemi
+        helper.setSuccess(false);
+
+        return new ResponseSentenceDTO(helper.getResult(), isSuccess);
 
     }
 }

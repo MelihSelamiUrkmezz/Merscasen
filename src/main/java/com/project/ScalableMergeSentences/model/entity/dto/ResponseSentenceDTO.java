@@ -11,4 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ResponseSentenceDTO {
     private String mainSentence;
+    private boolean success;
 }

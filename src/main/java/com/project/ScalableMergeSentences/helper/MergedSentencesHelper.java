@@ -11,6 +11,9 @@ import java.util.TreeMap;
 public class MergedSentencesHelper {
     public String result;
     public boolean flag;
+    public boolean success = false;
+
+
 
     public void main_process(ArrayList<String[]> sentences){
 
@@ -19,11 +22,36 @@ public class MergedSentencesHelper {
             for(String word: sentences.get(0)){
                 main_sentence+=word+" ";
             }
-            setResult(main_sentence);
+            setResult(main_sentence.strip());
             return;
         }
 
         ArrayList<String> common_words=get_common_words(sentences);
+
+        // not exist common
+        if(common_words.isEmpty()){
+            String temp_results = "";
+
+            ArrayList<String[]> temp = new ArrayList<>();
+            temp.add(sentences.get(0));
+            temp.add(sentences.get(1));
+
+            for(String[] words: temp){
+
+                temp_results += String.join(" ", words);
+                temp_results += " ";
+            }
+
+            temp_results = temp_results.strip();
+
+
+            sentences.remove(0);
+            sentences.remove(0);
+            sentences.add(0,temp_results.split(" "));
+            setFlag(false);
+            main_process(sentences);
+            return;
+        }
 
         String[] main_sentences= get_main_sentence(common_words,sentences);
         String temp_results="";
@@ -38,6 +66,7 @@ public class MergedSentencesHelper {
         sentences.add(0,temp_results.split(" "));
 
         setFlag(false);
+        setSuccess(true);
         main_process(sentences);
 
     }
@@ -74,6 +103,7 @@ public class MergedSentencesHelper {
 
     }
     public  String[] get_main_sentence(ArrayList<String> common_words,ArrayList<String[]> sentences){
+
         ArrayList<String[]> temp = new ArrayList<>();
         temp.add(sentences.get(0));
         temp.add(sentences.get(1));
@@ -168,6 +198,14 @@ public class MergedSentencesHelper {
 
     public void setFlag(boolean flag) {
         this.flag = flag;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
 }
