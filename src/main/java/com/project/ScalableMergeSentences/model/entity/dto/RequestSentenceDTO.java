@@ -5,12 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestSentenceDTO {
-    private String sentenceOne;
-    private String sentenceTwo;
-    private String mainSentence;
+    private ArrayList<String> sentences;
 }

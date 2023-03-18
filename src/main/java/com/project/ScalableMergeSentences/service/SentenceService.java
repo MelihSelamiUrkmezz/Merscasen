@@ -1,10 +1,15 @@
 package com.project.ScalableMergeSentences.service;
 
 import com.project.ScalableMergeSentences.helper.MergedSentencesHelper;
+import com.project.ScalableMergeSentences.model.entity.Sentence;
 import com.project.ScalableMergeSentences.model.entity.dto.RequestSentenceDTO;
 import com.project.ScalableMergeSentences.model.entity.dto.ResponseSentenceDTO;
 import com.project.ScalableMergeSentences.repository.SentenceRepository;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
+@Service
 public class SentenceService {
     private final MergedSentencesHelper helper;
     private final SentenceRepository repository;
@@ -16,6 +21,23 @@ public class SentenceService {
 
 
     public ResponseSentenceDTO MergeSentences(RequestSentenceDTO requestSentenceDTO){
-        return null;
+        //split sentences each word
+        ArrayList<String[]> words = new ArrayList<>();
+        for(String temp: requestSentenceDTO.getSentences()){
+            String[] word = temp.split(" ");
+            words.add(word);
+        }
+
+        //calculated MainSentence
+        helper.main_process(words);
+
+        Sentence sentence = new Sentence();
+        sentence.setSentences(requestSentenceDTO.getSentences());
+        sentence.setMainSentence(helper.getResult());
+
+        repository.save(sentence);
+
+        return new ResponseSentenceDTO(helper.getResult());
+
     }
 }
