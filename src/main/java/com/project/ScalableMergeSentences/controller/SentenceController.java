@@ -5,13 +5,11 @@ import com.project.ScalableMergeSentences.model.entity.dto.RequestSentenceDTO;
 import com.project.ScalableMergeSentences.model.entity.dto.ResponseSentenceDTO;
 import com.project.ScalableMergeSentences.service.SentenceService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/sentence")
+@CrossOrigin
 public class SentenceController {
 
     private final SentenceService sentenceService;
