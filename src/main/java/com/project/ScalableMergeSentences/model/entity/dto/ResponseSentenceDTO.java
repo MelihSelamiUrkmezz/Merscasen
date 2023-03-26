@@ -12,7 +12,6 @@ import lombok.Setter;
 public class ResponseSentenceDTO {
     private String mainSentence;
     private boolean success;
-    private long calculateTimeSecond;
     private double calculateTimeNanoSecond;
     private double calculateTimeMiliSecond;
 }

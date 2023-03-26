@@ -35,10 +35,9 @@ public class SentenceService {
         long endTime = System.nanoTime();
 
         long time  = endTime - startTime;
-        double calculateTimeNanoSecond = (double)time / 1_000_000_000.0;
+        double calculateTimeNanoSecond = time;
         double calculateTimeMiliSecond = (double)time / 1_000_000.0;
 
-        long calculateTimeSecond = TimeUnit.SECONDS.convert(time, TimeUnit.NANOSECONDS);
 
         Sentence sentence = new Sentence();
         sentence.setSentences(requestSentenceDTO.getSentences());
@@ -53,7 +52,7 @@ public class SentenceService {
         //spring dependencyInjection cozum islemi
         helper.setSuccess(false);
 
-        return new ResponseSentenceDTO(helper.getResult(), isSuccess, calculateTimeSecond, calculateTimeNanoSecond, calculateTimeMiliSecond);
+        return new ResponseSentenceDTO(helper.getResult(), isSuccess, calculateTimeNanoSecond, calculateTimeMiliSecond);
 
     }
 }
