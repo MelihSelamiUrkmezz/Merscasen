@@ -8,6 +8,7 @@ import com.project.ScalableMergeSentences.repository.SentenceRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class SentenceService {
@@ -28,13 +29,22 @@ public class SentenceService {
             words.add(word);
         }
 
+        long startTime = System.nanoTime();
         //calculated MainSentence
         helper.main_process(words);
+        long endTime = System.nanoTime();
+
+        long time  = endTime - startTime;
+        double calculateTimeNanoSecond = (double)time / 1_000_000_000.0;
+        double calculateTimeMiliSecond = (double)time / 1_000_000.0;
+
+        long calculateTimeSecond = TimeUnit.SECONDS.convert(time, TimeUnit.NANOSECONDS);
 
         Sentence sentence = new Sentence();
         sentence.setSentences(requestSentenceDTO.getSentences());
         sentence.setMainSentence(helper.getResult());
         sentence.setSuccess(helper.isSuccess());
+
 
         repository.save(sentence);
 
@@ -43,7 +53,7 @@ public class SentenceService {
         //spring dependencyInjection cozum islemi
         helper.setSuccess(false);
 
-        return new ResponseSentenceDTO(helper.getResult(), isSuccess);
+        return new ResponseSentenceDTO(helper.getResult(), isSuccess, calculateTimeSecond, calculateTimeNanoSecond, calculateTimeMiliSecond);
 
     }
 }
