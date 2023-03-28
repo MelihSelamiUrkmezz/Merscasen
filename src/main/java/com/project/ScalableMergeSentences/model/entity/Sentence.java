@@ -21,4 +21,5 @@ public class Sentence {
     private ArrayList<String> sentences = new ArrayList<String>();
     private String mainSentence;
     private boolean success;
+    private double calculateTimeMiliSecond;
 }
